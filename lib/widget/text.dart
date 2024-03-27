@@ -12,10 +12,12 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(text.toUpperCase(),
+        Text(text,
+      
             style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+              overflow: TextOverflow.fade,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             )),
       ],
     );

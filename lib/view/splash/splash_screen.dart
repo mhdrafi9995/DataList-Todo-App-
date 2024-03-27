@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:bloc_sample/view/home/home_page.dart';
-import 'package:bloc_sample/view/login/login_page.dart';
+import 'package:bloc_sample/view/home/home_main_page_.dart';
+
+import 'package:bloc_sample/widget/login_page_fi.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +14,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 late String finalUserName;
-const String keyValue = 'username';
+late String finalEmail;
+String keyUserName = 'username';
+String keyEmail = 'email';
 
 class SplashScreenState extends State<SplashScreen> {
   @override
@@ -24,9 +27,9 @@ class SplashScreenState extends State<SplashScreen> {
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => finalUserName == ''
+                builder: (context) => finalUserName == '' && finalEmail == ''
                     ? const LoginPage()
-                    : const HomePage())),
+                    : const HomePageSample())),
       );
     });
     super.initState();
@@ -35,11 +38,18 @@ class SplashScreenState extends State<SplashScreen> {
   Future getValidation() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    var useName = sharedPreferences.getString(keyValue);
+    var useName = sharedPreferences.getString(
+      keyUserName,
+    );
+    var email = sharedPreferences.getString(
+      keyEmail,
+    );
     setState(() {
       finalUserName = useName ?? '';
+      finalEmail = email ?? '';
     });
     log(finalUserName);
+    log(finalEmail);
   }
 
   @override
@@ -60,7 +70,4 @@ class SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-
- 
- 
 }
